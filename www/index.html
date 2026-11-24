@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#2d54e6">
+<title>Рабочий вес</title>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f1f3f6;--card:#fff;--ink:#121c2a;--mut:#75818f;--line:#e3e7ed;--ac:#2d54e6;--onac:#fff;--acs:#e6ecff;--up:#12875f;--dn:#c93a33;--r:18px;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d131b;--card:#161e29;--ink:#eaf0f7;--mut:#8795a5;--line:#243040;--ac:#7a97ff;--onac:#0d131b;--acs:#1b2745;--up:#3ccf9b;--dn:#ff7b72;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0d131b;--card:#161e29;--ink:#eaf0f7;--mut:#8795a5;--line:#243040;--ac:#7a97ff;--onac:#0d131b;--acs:#1b2745;--up:#3ccf9b;--dn:#ff7b72;color-scheme:dark}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.4 Onest,system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:680px;margin:0 auto;padding:4px 16px 120px}
+h1{font-size:30px;letter-spacing:-.02em;margin:22px 0 8px}h1.sm{font-size:22px;margin:0}h2{font-size:17px;margin:22px 0 4px}
+.mu{color:var(--mut);font-size:13px}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.r{display:flex;align-items:center;gap:4px}.g1{flex:1;min-width:0}.bs{display:flex;gap:6px;align-items:center}
+.card{background:var(--card);border-radius:var(--r);padding:16px;margin:10px 0;border:1px solid var(--line);transition:transform .12s}.tap{cursor:pointer}.tap:active{transform:scale(.99)}
+.ac{background:var(--acs);border-color:transparent;cursor:pointer}.ac b{display:block}
+.bt{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:11px 16px;border-radius:14px;font:inherit;font-weight:600;cursor:pointer;transition:transform .12s}.bt:active{transform:scale(.96)}
+.bt.p{background:var(--ac);color:var(--onac);border-color:transparent}.wide{width:100%;margin-top:10px}.dg{color:var(--dn)}
+.ib{flex:none;width:40px;height:40px;border-radius:12px;border:0;background:transparent;color:var(--mut);font-size:18px;cursor:pointer}.ib:hover{background:var(--bg)}
+.in{width:100%;padding:13px 14px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;margin:8px 0}
+input:focus,select:focus,button:focus-visible{outline:2px solid var(--ac);outline-offset:1px}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:4px 0 8px}.chp{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:7px 13px;border-radius:99px;font:inherit;font-size:14px;cursor:pointer;transition:.15s}.chp.on{background:var(--ac);color:var(--onac);border-color:transparent}
+.st{display:flex;align-items:center;gap:8px;margin:8px 0}.ix{width:22px;color:var(--mut);font-size:13px;text-align:center}
+.st label{flex:1;position:relative;display:block}.st input{width:100%;padding:12px 52px 12px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;font-size:18px;font-weight:600}
+.st i{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-style:normal;font-size:12px;color:var(--mut)}
+.pv{margin:6px 0 4px}.sets{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.pill{background:var(--bg);padding:5px 11px;border-radius:99px;font-weight:600;font-size:14px}
+.ch{display:inline-block;padding:4px 10px;border-radius:99px;font-weight:600;font-size:13px;margin-left:4px;animation:pop .3s}
+.u{color:var(--up);background:color-mix(in srgb,var(--up) 15%,transparent)}.d{color:var(--dn);background:color-mix(in srgb,var(--dn) 15%,transparent)}.n{color:var(--mut);background:var(--bg)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stats .card{margin:0}.stats b{display:block;font-size:19px;margin-top:4px}
+.empty{color:var(--mut);padding:28px 8px;text-align:center;line-height:1.5}
+.chart{width:100%;height:auto;display:block;overflow:visible}.tx{fill:var(--mut);font-size:10px}.tv{fill:var(--ink);font-size:12px;font-weight:700}
+.ln{fill:none;stroke:var(--ac);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:dr .9s .1s ease forwards}
+.ar{fill:var(--acs);opacity:0;animation:fi .6s .5s forwards}.dt{fill:var(--ac);opacity:0;animation:fi .3s forwards}
+#nv{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;gap:6px;padding:8px 12px calc(8px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--line);transition:transform .2s;z-index:10}#nv.hide{transform:translateY(110%)}
+#nv button{flex:1;max-width:200px;border:0;background:transparent;color:var(--mut);padding:11px 6px;border-radius:12px;font:inherit;font-weight:600;font-size:14px;cursor:pointer;transition:.15s}#nv button.on{background:var(--acs);color:var(--ac)}
+#t{position:fixed;left:50%;bottom:90px;transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:99px;opacity:0;transition:.2s;pointer-events:none;font-size:14px;z-index:30;max-width:90%;text-align:center}#t.on{opacity:1;transform:translate(-50%,0)}
+#sh{position:fixed;inset:0;z-index:20;pointer-events:none}#sh.on{pointer-events:auto}.bd{position:absolute;inset:0;background:#0007;opacity:0;transition:.2s}#sh.on .bd{opacity:1}
+.sp{position:absolute;left:50%;bottom:0;width:min(640px,100%);max-height:88%;overflow:auto;background:var(--bg);border-radius:24px 24px 0 0;padding:8px 16px calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,100%);transition:transform .25s cubic-bezier(.2,.8,.2,1)}#sh.on .sp{transform:translate(-50%,0)}
+.in-v{animation:pg .25s ease}.pop{animation:pop .25s ease}
+@keyframes pg{from{opacity:0;transform:translateY(8px)}}@keyframes pop{from{opacity:0;transform:scale(.95)}}@keyframes dr{to{stroke-dashoffset:0}}@keyframes fi{to{opacity:1}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.ln{stroke-dashoffset:0}.ar,.dt{opacity:1}}
+</style></head><body>
+<main id="m"></main>
+<nav id="nv"><button data-a="tab" data-t="home">Тренировки</button><button data-a="tab" data-t="lib">Упражнения</button><button data-a="tab" data-t="prog">Прогресс</button></nav>
+<div id="sh"></div><div id="t" role="status"></div>
+<script>
+(()=>{
+const G=['Грудь','Спина','Бицепс','Трицепс','Плечи','Предплечья','Ноги','Ягодицы','Пресс','Икры'];
+const E={B:'Штанга',D:'Гантели',M:'Тренажёр',C:'Блок',W:'Свой вес'};
+const LS=`B:Жим штанги лёжа;B:Жим штанги на наклонной скамье;D:Жим гантелей лёжа;D:Жим гантелей на наклонной скамье;D:Разводка гантелей;M:Жим в тренажёре сидя;M:Бабочка;C:Сведение рук в кроссовере;W:Отжимания от пола;W:Отжимания на брусьях
+B:Становая тяга;B:Тяга штанги в наклоне;D:Тяга гантели одной рукой;C:Тяга верхнего блока;C:Тяга нижнего блока;M:Рычажная тяга;M:Тяга в тренажёре сидя;W:Подтягивания;W:Гиперэкстензия
+B:Подъём штанги на бицепс;D:Подъём гантелей на бицепс;D:Молотки;D:Концентрированный подъём;C:Сгибание рук на нижнем блоке;M:Сгибание рук на скамье Скотта;W:Подтягивания обратным хватом
+B:Французский жим;B:Жим узким хватом;D:Разгибание гантели из-за головы;C:Разгибание рук на верхнем блоке;C:Разгибание с канатом;M:Жим в тренажёре на трицепс;W:Обратные отжимания от скамьи;W:Алмазные отжимания
+B:Жим штанги стоя;D:Жим гантелей сидя;D:Махи гантелей в стороны;D:Махи в наклоне;M:Жим от плеч в тренажёре;C:Тяга к подбородку на блоке;C:Махи на блоке;B:Шраги со штангой
+B:Сгибание кистей со штангой;B:Разгибание кистей со штангой;D:Сгибание кистей с гантелями;D:Прогулка фермера;C:Сгибание кистей на блоке;W:Вис на турнике
+B:Приседания со штангой;B:Фронтальные приседания;B:Румынская тяга;D:Выпады с гантелями;D:Болгарские выпады;M:Жим ногами;M:Разгибание ног;M:Сгибание ног;M:Гакк-приседания;W:Приседания
+B:Ягодичный мостик со штангой;B:Становая на прямых ногах;D:Сумо-присед с гантелью;M:Отведение ноги в тренажёре;C:Отведение ноги на блоке;W:Ягодичный мостик;W:Выпады назад
+W:Скручивания;W:Подъём ног в висе;W:Планка;W:Велосипед;C:Скручивания на блоке;M:Скручивания в тренажёре;D:Русские скручивания
+B:Подъём на носки со штангой;D:Подъём на носки с гантелями;M:Подъём на носки в тренажёре;M:Икры сидя;M:Икры в жиме ногами;W:Подъём на носки`.split('\n');
+const LIB=[];LS.forEach((l,gi)=>l.split(';').forEach(s=>{const[e,n]=s.split(':');LIB.push({id:'l'+LIB.length,n,g:G[gi],e})}));
+let S={cx:[],tp:[],log:[],dr:null},V={t:'home'},P={q:'',g:'',cb:null},TT,AK,T;
+try{S=Object.assign(S,JSON.parse(localStorage.getItem('podhod')||'{}'))}catch(e){}
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const save=()=>{try{localStorage.setItem('podhod',JSON.stringify(S))}catch(e){toast('Не удалось сохранить данные на устройстве')}};
+const sv=()=>{clearTimeout(T);T=setTimeout(save,300)};
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+const ex=id=>LIB.find(x=>x.id==id)||S.cx.find(x=>x.id==id)||{n:'Удалённое упражнение',g:'',e:'W'};
+const dt=d=>new Date(d).toLocaleDateString('ru',{day:'numeric',month:'short'});
+const fs=s=>s.map(x=>x.w?`${x.w}×${x.r}`:`${x.r} повт.`).join(', ');
+const fx=x=>x.w?`${x.w} кг × ${x.r}`:`${x.r} повт.`;
+const top=s=>s.reduce((b,x)=>!b||x.w>b.w||x.w==b.w&&x.r>b.r?x:b,null);
+const num=v=>Math.round(v*100)/100;
+const hist=id=>S.log.filter(l=>l.it.some(i=>i.ex==id)).map(l=>({l:l.id,d:l.d,s:l.it.find(i=>i.ex==id).s}));
+function chip(a,b){if(!a)return'';if(!b)return'<span class="ch n">Первый результат</span>';const dw=num((+a.w||0)-(+b.w||0)),dr=a.r-b.r;if(!dw&&!dr)return'<span class="ch n">Без изменений</span>';const c=x=>x>0?'u':x<0?'d':'n',p=x=>(x>0?'+':'')+x;return(dw?`<span class="ch ${c(dw)}">${p(dw)} кг</span>`:'')+(dr?`<span class="ch ${c(dr)}">${p(dr)} повт.</span>`:'')}
+const toast=m=>{const t=$('#t');t.textContent=m;t.className='on';clearTimeout(TT);TT=setTimeout(()=>t.className='',2300)};
+const arm=(k,f,m)=>{if(AK==k){AK=null;f()}else{AK=k;toast(m||'Нажмите ещё раз для подтверждения');setTimeout(()=>{if(AK==k)AK=null},2500)}};
+/* views */
+function home(){const d=S.dr;return`<h1>Мои тренировки</h1>`+(d?`<div class="card ac" data-a="resume"><b>${esc(d.name)}</b><span class="mu">Не завершена. Продолжить</span></div>`:'')+
+`<div class="row"><h2>Шаблоны</h2><button class="bt" data-a="newtp">+ Новая</button></div>`+
+(S.tp.length?S.tp.map(t=>{const l=[...S.log].reverse().find(x=>x.tid==t.id);return`<div class="card"><div class="row"><div class="g1"><b>${esc(t.name)}</b><div class="mu">${t.it.length} упр.${l?', была '+dt(l.d):''}</div></div><div class="bs"><button class="ib" data-a="edtp" data-id="${t.id}" aria-label="Изменить">✎</button><button class="bt p" data-a="start" data-id="${t.id}">Начать</button></div></div></div>`}).join(''):`<div class="empty">Создайте первую тренировку: дайте ей название и добавьте упражнения.</div>`)+
+(S.log.length?`<h2>История</h2>`+[...S.log].reverse().slice(0,30).map(l=>`<div class="card tap" data-a="det" data-id="${l.id}"><div class="row"><b>${esc(l.name)}</b><span class="mu">${dt(l.d)}</span></div><div class="mu">${l.it.map(i=>esc(ex(i.ex).n)).join(', ')}</div></div>`).join(''):'')}
+function edit(){return`<div class="row"><button class="ib" data-a="tab" data-t="home" aria-label="Назад">←</button><h1 class="sm">${V.id?'Редактирование':'Новая тренировка'}</h1><span style="width:40px"></span></div>
+<input id="nm" class="in" placeholder="Название, например «Грудь и трицепс»" value="${esc(V.name)}">`+
+V.it.map((id,i)=>{const e=ex(id);return`<div class="card r ${V.pop=='x'+i?'pop':''}"><div class="g1"><b>${esc(e.n)}</b><div class="mu">${e.g}, ${E[e.e]}</div></div><button class="ib" data-a="eup" data-i="${i}">↑</button><button class="ib" data-a="edn" data-i="${i}">↓</button><button class="ib" data-a="edel" data-i="${i}">✕</button></div>`}).join('')+
+`<button class="bt wide" data-a="eadd">+ Добавить упражнение</button><button class="bt p wide" data-a="esave">Сохранить тренировку</button>`+(V.id?`<button class="bt wide dg" data-a="tdel">Удалить тренировку</button>`:'')}
+const dl=i=>{const x=S.dr.it[i],h=hist(x.ex),p=h[h.length-1],c=top(x.s.filter(s=>s.r>0));return c?chip(c,p&&top(p.s)):''};
+function xcard(i){const x=S.dr.it[i],e=ex(x.ex),h=hist(x.ex),p=h[h.length-1];
+return`<div class="card ${V.pop=='x'+i?'pop':''}"><div class="row"><div class="g1"><b>${esc(e.n)}</b><div class="mu">${e.g}, ${E[e.e]}</div></div><button class="ib" data-a="xdel" data-i="${i}" aria-label="Убрать">✕</button></div>
+<div class="mu pv">${p?`Прошлый раз, ${dt(p.d)}: ${fs(p.s)}`:'Раньше не выполняли'}</div>`+
+x.s.map((s,j)=>`<div class="st ${V.pop==i+'-'+j?'pop':''}"><span class="ix">${j+1}</span><label><input type="number" inputmode="decimal" step="any" min="0" data-i="${i}" data-j="${j}" data-k="w" value="${s.w}" placeholder="0" aria-label="Вес"><i>кг</i></label><label><input type="number" inputmode="numeric" min="0" data-i="${i}" data-j="${j}" data-k="r" value="${s.r}" placeholder="0" aria-label="Повторения"><i>повт.</i></label><button class="ib" data-a="sdel" data-i="${i}" data-j="${j}" aria-label="Удалить подход">−</button></div>`).join('')+
+`<div class="row"><button class="bt" data-a="sadd" data-i="${i}">+ Подход</button><div id="dl${i}">${dl(i)}</div></div></div>`}
+function run(){const d=S.dr;return`<div class="row"><button class="ib" data-a="tab" data-t="home" aria-label="Назад">←</button><h1 class="sm">${esc(d.name)}</h1><span style="width:40px"></span></div>`+d.it.map((_,i)=>xcard(i)).join('')+`<button class="bt wide" data-a="radd">+ Добавить упражнение</button><button class="bt p wide" data-a="fin">Завершить и сохранить</button><button class="bt wide dg" data-a="abort">Отменить тренировку</button>`}
+function det(){const idx=S.log.findIndex(l=>l.id==V.id),l=S.log[idx];if(!l)return home();
+return`<div class="row"><button class="ib" data-a="tab" data-t="home" aria-label="Назад">←</button><h1 class="sm">${esc(l.name)}</h1><span style="width:40px"></span></div><div class="mu">${new Date(l.d).toLocaleDateString('ru',{day:'numeric',month:'long',year:'numeric'})}</div>`+
+l.it.map(i=>{const e=ex(i.ex),q=S.log.slice(0,idx).reverse().find(z=>z.it.some(y=>y.ex==i.ex)),pp=q&&q.it.find(y=>y.ex==i.ex).s;return`<div class="card"><b>${esc(e.n)}</b><div class="sets">${i.s.map(s=>`<span class="pill">${s.w?s.w+' × ':''}${s.r}${s.w?'':' повт.'}</span>`).join('')}</div><div class="row"><span class="mu">${pp?'Прошлый раз: '+fs(pp):''}</span><span>${chip(top(i.s),pp&&top(pp))}</span></div></div>`}).join('')+
+`<button class="bt p wide" data-a="rep" data-id="${l.id}">Повторить тренировку</button><button class="bt wide dg" data-a="ldel" data-id="${l.id}">Удалить запись</button>`}
+const tb=()=>['',...G].map(g=>`<button class="chp ${P.g==g?'on':''}" data-a="pg" data-g="${g}">${g||'Все'}</button>`).join('');
+function list(){const q=P.q.toLowerCase(),a=[...S.cx,...LIB].filter(e=>(!P.g||e.g==P.g)&&e.n.toLowerCase().includes(q));
+return a.length?a.map(e=>{const c=e.id[0]=='c';return`<div class="card r tap" data-a="${P.cb?'pk':'exo'}" data-id="${e.id}"><div class="g1"><b>${esc(e.n)}</b><div class="mu">${e.g}, ${E[e.e]}${c?', своё':''}</div></div>${c&&!P.cb?`<button class="ib" data-a="cxdel" data-id="${e.id}" aria-label="Удалить">✕</button>`:''}</div>`}).join(''):'<div class="empty">Ничего не найдено. Создайте своё упражнение.</div>'}
+const pl=()=>{$('#pl').innerHTML=list()};
+function lib(){P={q:'',g:'',cb:null};return`<h1>Упражнения</h1><input id="q" class="in" placeholder="Поиск по названию" autocomplete="off"><div id="tb" class="chips">${tb()}</div><div id="pl">${list()}</div><button class="bt p wide" data-a="newex">+ Своё упражнение</button>`}
+function chart(v,d,u){v=v.slice(-30);d=d.slice(-30);const W=320,H=150,p=22,mn=Math.min(...v),mx=Math.max(...v),r=mx-mn||1;
+const X=i=>v.length>1?p+i*(W-2*p)/(v.length-1):W/2,Y=x=>H-p-(x-mn)/r*(H-2*p-14);
+const q=v.map((x,i)=>[X(i),Y(x)]),ln=q.map((a,i)=>(i?'L':'M')+a[0].toFixed(1)+' '+a[1].toFixed(1)).join(''),z=q[q.length-1];
+return`<svg viewBox="0 0 ${W} ${H}" class="chart" role="img" aria-label="График"><path class="ar" d="${ln}L${z[0].toFixed(1)} ${H-p}L${q[0][0].toFixed(1)} ${H-p}Z"/>${v.length>1?`<path class="ln" pathLength="1" d="${ln}"/>`:''}${q.map((a,i)=>`<circle class="dt" cx="${a[0].toFixed(1)}" cy="${a[1].toFixed(1)}" r="3.5" style="animation-delay:${(.5+i*.04).toFixed(2)}s"/>`).join('')}<text class="tx" x="${p}" y="${H-4}">${dt(d[0])}</text><text class="tx" x="${W-p}" y="${H-4}" text-anchor="end">${dt(d[d.length-1])}</text><text class="tv" x="${z[0].toFixed(1)}" y="${(z[1]-9).toFixed(1)}" text-anchor="${v.length>1?'end':'middle'}">${v[v.length-1]} ${u}</text></svg>`}
+function prog(){const ids=[...new Set(S.log.flatMap(l=>l.it.map(i=>i.ex)))];
+if(!ids.length)return`<h1>Прогресс</h1><div class="empty">Сохраните первую тренировку — здесь появятся графики и прибавки по каждому упражнению.</div>`;
+if(!V.ex||!ids.includes(V.ex))V.ex=ids[0];
+const h=hist(V.ex),tp=h.map(x=>top(x.s)),m=tp.some(x=>x.w>0)?'w':'r',last=tp[tp.length-1],pr=tp[tp.length-2],best=tp.reduce((b,x)=>x[m]>b[m]?x:b);
+return`<h1>Прогресс</h1><select id="pe" class="in">${ids.map(id=>`<option value="${id}" ${id==V.ex?'selected':''}>${esc(ex(id).n)}</option>`).join('')}</select>
+<div class="stats"><div class="card"><span class="mu">Предыдущий</span><b>${pr?fx(pr):'—'}</b></div><div class="card"><span class="mu">Последний</span><b>${fx(last)}</b></div><div class="card"><span class="mu">Разница</span><div style="margin-top:4px">${pr?chip(last,pr):'—'}</div></div><div class="card"><span class="mu">Рекорд</span><b>${fx(best)}</b></div></div>
+<div class="card" style="margin-top:10px">${chart(tp.map(x=>x[m]),h.map(x=>x.d),m=='w'?'кг':'повт.')}</div><h2>История</h2>`+
+h.map((x,i)=>`<div class="card"><div class="row"><b>${dt(x.d)}</b><span>${chip(tp[i],tp[i-1])}</span></div><div class="mu">${fs(x.s)}</div></div>`).reverse().join('')}
+/* render */
+const VW={home,lib,prog,edit,run,det};
+function render(a){const m=$('#m');m.innerHTML=VW[V.t]();V.pop=null;m.classList.remove('in-v');if(a){void m.offsetWidth;m.classList.add('in-v')}
+$('#nv').className=['edit','run','det'].includes(V.t)?'hide':'';document.querySelectorAll('#nv button').forEach(b=>b.classList.toggle('on',b.dataset.t==V.t))}
+const go=v=>{V=v;render(true);scrollTo(0,0)};
+/* sheet */
+const sheet=h=>{$('#sh').innerHTML=`<div class="bd" data-a="cl"></div><div class="sp">${h}</div>`;requestAnimationFrame(()=>$('#sh').className='on')};
+const shut=()=>{$('#sh').className='';setTimeout(()=>{if(!$('#sh').className)$('#sh').innerHTML=''},300)};
+const pick=cb=>{P={q:'',g:'',cb};sheet(`<h2>Добавить упражнение</h2><input id="q" class="in" placeholder="Поиск по названию" autocomplete="off"><div id="tb" class="chips">${tb()}</div><div id="pl">${list()}</div><button class="bt wide" data-a="newex">+ Своё упражнение</button>`)};
+const form=`<h2>Новое упражнение</h2><input id="fn" class="in" placeholder="Название" maxlength="60"><select id="fg" class="in">${G.map(g=>`<option>${g}</option>`).join('')}</select><select id="fe" class="in">${Object.entries(E).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}</select><button class="bt p wide" data-a="mk">Создать</button>`;
+const begin=(name,ids,tid)=>{S.dr={tid,name,it:ids.map(id=>{const h=hist(id),p=h[h.length-1];return{ex:id,s:p?p.s.map(x=>({w:x.w,r:x.r})):[{w:'',r:''}]}})};save();go({t:'run'})};
+const guard=(k,f)=>S.dr?arm(k,f,'Есть незавершённая тренировка. Нажмите ещё раз, чтобы заменить её'):f();
+const mv=(i,d)=>{const j=i+d;if(j<0||j>=V.it.length)return;[V.it[i],V.it[j]]=[V.it[j],V.it[i]];V.pop='x'+j;render()};
+const A={
+tab:d=>go({t:d.t}),newtp:()=>go({t:'edit',id:null,name:'',it:[]}),
+edtp:d=>{const t=S.tp.find(x=>x.id==d.id);go({t:'edit',id:t.id,name:t.name,it:[...t.it]})},
+eadd:()=>pick(id=>{V.it.push(id);V.pop='x'+(V.it.length-1);render()}),
+eup:d=>mv(+d.i,-1),edn:d=>mv(+d.i,1),edel:d=>{V.it.splice(d.i,1);render()},
+esave:()=>{const n=V.name.trim();if(!n)return toast('Введите название тренировки');if(!V.it.length)return toast('Добавьте хотя бы одно упражнение');
+if(V.id)Object.assign(S.tp.find(x=>x.id==V.id),{name:n,it:V.it});else S.tp.push({id:uid(),name:n,it:V.it});save();toast('Тренировка сохранена');go({t:'home'})},
+tdel:()=>arm('t',()=>{S.tp=S.tp.filter(x=>x.id!=V.id);save();go({t:'home'})}),
+start:d=>{const t=S.tp.find(x=>x.id==d.id);guard('s',()=>begin(t.name,t.it,t.id))},
+resume:()=>go({t:'run'}),
+rep:d=>{const l=S.log.find(x=>x.id==d.id);guard('s',()=>begin(l.name,l.it.map(i=>i.ex),l.tid))},
+radd:()=>pick(id=>{S.dr.it.push({ex:id,s:[{w:'',r:''}]});V.pop='x'+(S.dr.it.length-1);save();render()}),
+sadd:d=>{const s=S.dr.it[d.i].s,l=s[s.length-1];s.push(l?{w:l.w,r:l.r}:{w:'',r:''});V.pop=d.i+'-'+(s.length-1);save();render()},
+sdel:d=>{S.dr.it[d.i].s.splice(d.j,1);save();render()},
+xdel:d=>{S.dr.it.splice(d.i,1);save();render()},
+fin:()=>{const it=S.dr.it.map(x=>({ex:x.ex,s:x.s.filter(s=>s.r>0).map(s=>({w:+s.w||0,r:+s.r}))})).filter(x=>x.s.length);
+if(!it.length)return toast('Заполните хотя бы один подход');const l={id:uid(),tid:S.dr.tid,name:S.dr.name,d:Date.now(),it};S.log.push(l);S.dr=null;save();toast('Тренировка сохранена');go({t:'det',id:l.id})},
+abort:()=>arm('a',()=>{S.dr=null;save();go({t:'home'})}),
+det:d=>go({t:'det',id:d.id}),
+ldel:d=>arm('l',()=>{S.log=S.log.filter(x=>x.id!=d.id);save();go({t:'home'})}),
+pg:d=>{P.g=d.g;$('#tb').innerHTML=tb();pl()},
+pk:d=>{const cb=P.cb;shut();cb(d.id)},
+exo:d=>{if(hist(d.id).length)go({t:'prog',ex:d.id});else toast('Для этого упражнения пока нет записей')},
+cxdel:d=>arm('x'+d.id,()=>{S.cx=S.cx.filter(x=>x.id!=d.id);save();render()}),
+newex:()=>{if($('#sh').className=='on')$('#sh .sp').innerHTML=form;else sheet(form)},
+mk:()=>{const n=$('#fn').value.trim();if(!n)return toast('Введите название упражнения');const id='c'+uid();S.cx.push({id,n,g:$('#fg').value,e:$('#fe').value});save();const cb=P.cb;shut();if(cb)cb(id);else{toast('Упражнение создано');render()}},
+cl:shut};
+document.addEventListener('click',e=>{const el=e.target.closest('[data-a]');if(el&&A[el.dataset.a])A[el.dataset.a](el.dataset)});
+document.addEventListener('input',e=>{const t=e.target,k=t.dataset.k;
+if(k){S.dr.it[t.dataset.i].s[t.dataset.j][k]=t.value===''?'':+t.value;$('#dl'+t.dataset.i).innerHTML=dl(t.dataset.i);sv()}
+else if(t.id=='nm')V.name=t.value;else if(t.id=='q'){P.q=t.value;pl()}});
+document.addEventListener('change',e=>{if(e.target.id=='pe'){V.ex=e.target.value;render(true)}});
+addEventListener('pagehide',save);
+if(S.dr&&!Array.isArray(S.dr.it))S.dr=null;
+render(true);
+})();
+</script></body></html>
